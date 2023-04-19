@@ -119,7 +119,7 @@ router.get('/:spotId', async (req, res) => {
         },
         attributes: ['id', 'url', 'preview']
     })
-    const owner = await User.findByPk(spotId, {
+    const owner = await User.findByPk(spot.ownerId, {
         attributes: ['id', 'firstName', 'lastName']
     })
 
@@ -169,8 +169,15 @@ router.post('/', requireAuth, handleValidationErrors, async(req, res) => {
         price
     });
     
-    res.json(newSpot);
+    res.status(201).json(newSpot);
 })
+
+//add an image to a spot based on the spot's id
+// router.post('/:spotId/images', requireAuth, async(req, res) => {
+
+// })
+
+
 
 //edit a spot
 router.put('/:spotId', requireAuth, handleValidationErrors, async(req, res) => {
@@ -206,7 +213,7 @@ router.put('/:spotId', requireAuth, handleValidationErrors, async(req, res) => {
 router.delete('/:spotId', requireAuth, async(req, res) => {
     const { spotId } = req.params;
     const { user } = req;
-    
+
     const spot = await Spot.findByPk(spotId)
     if(!spot){
         return res.status(404).json({message: "Spot couldn't be found"})
