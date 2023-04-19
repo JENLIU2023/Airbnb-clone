@@ -45,36 +45,103 @@ module.exports = (sequelize, DataTypes) => {
   };
   Spot.init({
     ownerId: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
     },
     address: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Street address is required"
+        }
+      }
     },
     city: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "City is required"
+        }
+      }
     },
     state: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "State is required"
+        }
+      }
     },
     country: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Country is required"
+        }
+      }
     },
     lat: {
-      type: DataTypes.DECIMAL
+      type: DataTypes.DECIMAL,
+      validate: {
+        max: {
+          args: 90,
+          msg: "Latitude is not valid"
+        },
+        min: {
+          args: -90,
+          msg: "Latitude is not valid"
+        },
+        isDecimal: {
+          msg: "Latitude is not valid"
+        }
+      }
     },
     lng: {
-      type: DataTypes.DECIMAL
+      type: DataTypes.DECIMAL,
+      validate: {
+        max: {
+          args: 180,
+          msg: "Longitude is not valid"
+        },
+        min: {
+          args: -180,
+          msg: "Longitude is not valid"
+        },
+        isDecimal: {
+          msg: "Longitude is not valid"
+        }
+      }
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        len: {
+          args: [1, 50],
+          msg: "Name must be less than 50 characters"
+        }
+      }
     },
     description: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Description is required"
+        }
+      }
     },
     price: {
-      type: DataTypes.DECIMAL
+      type: DataTypes.DECIMAL,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "Price per day is required"
+        }
+      }
     }
   }, {
     sequelize,
