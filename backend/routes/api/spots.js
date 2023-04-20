@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { Spot, Review, SpotImage, User } = require('../../db/models')
+const { Spot, Review, SpotImage, User, ReviewImage } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
-const { handleValidationErrors } = require('../../utils/validation')
+const { handleValidationErrors } = require('../../utils/validation');
 
 //get all spots
 router.get('/', async(req, res) => {
@@ -174,10 +174,35 @@ router.post('/', requireAuth, handleValidationErrors, async(req, res) => {
 
 //add an image to a spot based on the spot's id
 router.post('/:spotId/images', requireAuth, async(req, res) => {
+    const { spotId } = req.params;
+    const { url, preview } = req.body;
+    const { user } = req;
+
+    const spot = await Spot.findByPk(spotId)
+    if(!spot){
+        return res.status(404).json({message: "Spot couldn't be found"})
+    }
+
+    if(spot.ownerId === user.id){
+        const newSpotImage = await SpotImage.create({
+            spotId,
+            url,
+            preview
+        });
+
+        const result = await SpotImage.findByPk(newSpotImage.id, {
+            attributes: ['id', 'url', 'preview']
+        })
+        res.json(result);        
+    }else{
+        res.status(403).json({
+            message: "Forbidden"
+        })
+    }
 
 })
 
-
+//
 
 //edit a spot
 router.put('/:spotId', requireAuth, handleValidationErrors, async(req, res) => {
@@ -205,7 +230,9 @@ router.put('/:spotId', requireAuth, handleValidationErrors, async(req, res) => {
         await spot.save();
         return res.json(spot)
     }else{
-        return res.json({"message": "No Proper Authorization"})
+        res.status(403).json({
+            message: "Forbidden"
+        })
     }
 })
 
@@ -221,11 +248,87 @@ router.delete('/:spotId', requireAuth, async(req, res) => {
 
     if(spot.ownerId === user.id){
         await spot.destroy();
-        return res.json({"message": "Successfully deleted"})
+        return res.json({message: "Successfully deleted"})
     }else{
-        return res.json({"message": "No Proper Authorization"})
+        res.status(403).json({
+            message: "Forbidden"
+        })
     }
 })
+
+//get all reviews by a Spot's id
+router.get('/:spotId/reviews', async(req, res) => {
+    const { spotId } = req.params;
+
+    const spot = await Spot.findByPk(spotId);
+    if(!spot){
+        return res.status(404).json({
+            message: "Spot couldn't be found"
+        })
+    }
+
+    const reviews = await Review.findAll({
+        where: {
+            spotId: spotId
+        }
+    });
+
+    for(let review of reviews){
+        const user = await User.findByPk(review.userId, {
+            attributes: ['id', 'firstName', 'lastName']
+        })
+        const reviewImage = await ReviewImage.findAll({
+            where: {
+                reviewId: review.id
+            },
+            attributes: ['id', 'url']
+        })
+
+        review.dataValues.User = user;
+        review.dataValues.ReviewImages = reviewImage;
+    }
+
+    res.json({
+        Reviews: reviews
+    })
+})
+
+//create a review for a spot based on the spot's id
+router.post('/:spotId/reviews', requireAuth, handleValidationErrors, async(req, res) => {
+    const { spotId } = req.params;
+    const { review, stars } = req.body;
+    const { user } = req;
+
+    const spot = await Spot.findByPk(spotId);
+    if(!spot){
+        return res.status(404).json({
+            message: "Spot couldn't be found"
+        })
+    }
+    
+    const reviewsPosted = await Review.findAll({
+        where: {
+            userId: user.id
+        }
+    })
+    for(let ele of reviewsPosted){
+        if(ele.spotId == spotId){
+            return res.status(500).json({
+                message: "User already has a review for this spot"
+            })
+        }
+    }
+
+    const newReview = await Review.create({
+        spotId,
+        userId: user.id,
+        review,
+        stars
+    })
+
+    res.status(201).json(newReview)
+})
+
 
 
 module.exports = router;
