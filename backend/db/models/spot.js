@@ -16,7 +16,6 @@ module.exports = (sequelize, DataTypes) => {
         {
           foreignKay: 'spotId',
           onDelete: 'CASCADE',
-          hooks: true
         }
       )
       Spot.hasMany(
@@ -24,7 +23,6 @@ module.exports = (sequelize, DataTypes) => {
         {
           foreignKay: 'spotId',
           onDelete: 'CASCADE',
-          hooks: true
         }
       )
       Spot.hasMany(
@@ -32,7 +30,6 @@ module.exports = (sequelize, DataTypes) => {
         {
           foreignKay: 'spotId',
           onDelete: 'CASCADE',
-          hooks: true
         }
       )
       Spot.belongsTo(
