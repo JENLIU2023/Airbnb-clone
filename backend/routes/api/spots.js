@@ -173,9 +173,9 @@ router.post('/', requireAuth, handleValidationErrors, async(req, res) => {
 })
 
 //add an image to a spot based on the spot's id
-// router.post('/:spotId/images', requireAuth, async(req, res) => {
+router.post('/:spotId/images', requireAuth, async(req, res) => {
 
-// })
+})
 
 
 
