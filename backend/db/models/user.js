@@ -46,6 +46,9 @@ module.exports = (sequelize, DataTypes) => {
           if (Validator.isEmail(value)) {
             throw new Error("Cannot be an email.");
           }
+        },
+        notNull: {
+          msg: "First Name is required"
         }
       }
     },
@@ -58,6 +61,9 @@ module.exports = (sequelize, DataTypes) => {
           if (Validator.isEmail(value)) {
             throw new Error("Cannot be an email.");
           }
+        },
+        notNull: {
+          msg: "Last Name is required"
         }
       }
     },
@@ -70,6 +76,9 @@ module.exports = (sequelize, DataTypes) => {
           if (Validator.isEmail(value)) {
             throw new Error("Cannot be an email.");
           }
+        },
+        notNull: {
+          msg: "Username is required"
         }
       }
     },
@@ -85,7 +94,9 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         len: [3, 256],
-        isEmail: true
+        isEmail: {
+          msg: "Invalid email"
+        }
       }
     }
   }, {
@@ -93,7 +104,7 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'User',
     defaultScope: {
       attributes: {
-        exclude: ["hashedPassword", "email", "createdAt", "updatedAt"]
+        exclude: ["hashedPassword", "createdAt", "updatedAt"]
       }
     }
   });
