@@ -22,17 +22,17 @@ module.exports = {
       {
         spotId: 1,
         url: '/spot1.jpg',
-        preview: false
+        preview: true
       },
       {
         spotId: 2,
         url: '/spot2.jpg',
-        preview: false
+        preview: true
       },
       {
         spotId: 3,
         url: '/spot3.jpg',
-        preview: false
+        preview: true
       }
     ])
   },
