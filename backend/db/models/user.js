@@ -13,19 +13,22 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(
         models.Spot,
         {
-          foreignKey: 'ownerId'
+          foreignKey: 'ownerId',
+          onDelete: 'CASCADE'
         }
       )
       User.hasMany(
         models.Booking,
         {
-          foreignKey: 'userId'
+          foreignKey: 'userId',
+          onDelete: 'CASCADE'
         }
       )
       User.hasMany(
         models.Review,
         {
-          foreignKey: 'userId'
+          foreignKey: 'userId',
+          onDelete: 'CASCADE'
         }
       )
     }
@@ -86,7 +89,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING.BINARY,
       allowNull: false,
       validate: {
-        len: [60, 60]
+        len: [60, 60],
+        notNull: {
+          msg: "Password is required"
+        }
       }
     },
     email: {
@@ -96,6 +102,9 @@ module.exports = (sequelize, DataTypes) => {
         len: [3, 256],
         isEmail: {
           msg: "Invalid email"
+        },
+        notNull: {
+          msg: "Email is required"
         }
       }
     }

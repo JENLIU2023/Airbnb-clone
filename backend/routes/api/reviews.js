@@ -23,14 +23,16 @@ router.get('/current', requireAuth, async(req, res) => {
                 exclude: ['description', 'createdAt', 'updatedAt']
             }
         })
+        const spotImage = await SpotImage.findByPk(spot.id);
+        spot.dataValues.previewImage = spotImage.url;
+
         const reviewImage = await ReviewImage.findAll({
             where: {
                 reviewId: review.id
             },
             attributes: ['id', 'url']
         })
-        spot.dataValues.previewImage = reviewImage[0].url;
-
+   
         review.dataValues.User = currentUser;
         review.dataValues.Spot = spot;
         review.dataValues.ReviewImages = reviewImage;

@@ -40,11 +40,21 @@ module.exports = (sequelize, DataTypes) => {
     },
     startDate: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "StartDate is required"
+        }
+      }
     },
     endDate: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "EndDate is required"
+        }
+      }
     }
   }, {
     sequelize,

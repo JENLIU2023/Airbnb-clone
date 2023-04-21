@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
       Spot.belongsTo(
         models.User,
         {
-          foreignKey: 'ownerId'
+          foreignKey: 'ownerId',
         }
       )
     }
@@ -88,6 +88,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     lat: {
       type: DataTypes.DECIMAL,
+      allowNull: false,
       validate: {
         max: {
           args: 90,
@@ -99,11 +100,15 @@ module.exports = (sequelize, DataTypes) => {
         },
         isDecimal: {
           msg: "Latitude is not valid"
+        },
+        notNull: {
+          msg: "Latitude is required"
         }
       }
     },
     lng: {
       type: DataTypes.DECIMAL,
+      allowNull: false,
       validate: {
         max: {
           args: 180,
@@ -115,6 +120,9 @@ module.exports = (sequelize, DataTypes) => {
         },
         isDecimal: {
           msg: "Longitude is not valid"
+        },
+        notNull: {
+          msg: "Longitude is required"
         }
       }
     },
@@ -125,6 +133,9 @@ module.exports = (sequelize, DataTypes) => {
         len: {
           args: [1, 50],
           msg: "Name must be less than 50 characters"
+        },
+        notNull: {
+          msg: "Name is required"
         }
       }
     },
