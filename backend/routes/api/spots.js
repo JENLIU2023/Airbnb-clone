@@ -3,10 +3,199 @@ const router = express.Router();
 const { Spot, Review, SpotImage, User, ReviewImage, Booking } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
 const { handleValidationErrors } = require('../../utils/validation');
+const { Op } = require("sequelize");
 
 //get all spots && Add Query Filters to Get All Spots
-router.get('/', async(req, res) => {
-    let allSpots = await Spot.findAll();
+router.get('/', async(req, res, next) => {
+    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query;
+    let where = {};
+    let pagination = {};    
+    
+    //QUERY FILTERS
+    //pagination
+    if(!page) page = 1;
+    if(!size) size = 20;
+
+    page = parseInt(page);    
+    size = parseInt(size);
+
+    if(isNaN(page)){
+        const err = new Error();
+        err.status = 400;
+        err.message = "Bad Request";
+        err.errors = {page: "Page must be an integer"};
+        return next(err)
+    }else if(page < 1){
+        const err = new Error();
+        err.status = 400;
+        err.message = "Bad Request";
+        err.errors = {page: "Page must be be greater than or equal to 1"};
+        return next(err)
+    }else if(page > 10){
+        const err = new Error();
+        err.status = 400;
+        err.message = "Bad Request";
+        err.errors = {page: "Page must be be less than or equal to 10"};
+        return next(err)
+    }
+
+    if(isNaN(size)){
+        const err = new Error();
+        err.status = 400;
+        err.message = "Bad Request";
+        err.errors = {page: "Size must be an integer"};
+        return next(err)
+    }else if(size < 1){
+        const err = new Error();
+        err.status = 400;
+        err.message = "Bad Request";
+        err.errors = {page: "Size must be be greater than or equal to 1"};
+        return next(err)
+    }else if(size > 20){
+        const err = new Error();
+        err.status = 400;
+        err.message = "Bad Request";
+        err.errors = {page: "Size must be be less than or equal to 20"};
+        return next(err)
+    }
+
+    pagination.limit = size;
+    pagination.offset = size * (page - 1);
+
+    //Lat
+    let checkMinLat;
+    let checkMaxLat;
+
+    if(minLat){
+        minLat = parseFloat(minLat);
+        if(isNaN(minLat) || minLat < -90 || minLat > 90) {
+            const err = new Error();
+            err.status = 400;
+            err.message = "Bad Request";
+            err.errors = {page: "Minimum latitude is invalid"};
+            return next(err)
+        }
+        checkMinLat = true;
+    }
+    if(maxLat){
+        maxLat = parseFloat(maxLat);        
+        if(isNaN(maxLat) || maxLat < -90 || maxLat > 90) {
+            const err = new Error();
+            err.status = 400;
+            err.message = "Bad Request";
+            err.errors = {page: "Maximum latitude is invalid"};
+            return next(err)
+        }        
+        checkMaxLat = true;
+    }
+    if(checkMinLat && checkMaxLat){
+        if(minLat > maxLat){
+            const err = new Error();
+            err.status = 400;
+            err.message = "Bad Request";
+            err.errors = {page: "Maximum latitude must be greater or equal to minimum latitude"};
+            return next(err)
+        }        
+        where.lat = { [Op.between]: [minLat, maxLat] };
+    }
+    if(checkMinLat && !checkMaxLat){
+        where.lat = { [Op.gte]: minLat };
+    }
+    if(!checkMinLat && checkMaxLat){
+        where.lat = { [Op.lte]: maxLat}
+    }
+
+    //Lng
+    let checkMinLng;
+    let checkMaxLng;
+
+    if(minLng){
+        minLng = parseFloat(minLng);
+        if(isNaN(minLng) || minLng < -180 || minLng > 180) {
+            const err = new Error();
+            err.status = 400;
+            err.message = "Bad Request";
+            err.errors = {page: "Minimum longitude is invalid"};
+            return next(err)
+        }
+        checkMinLng = true;
+    }
+    if(maxLng){
+        maxLng = parseFloat(maxLng);        
+        if(isNaN(maxLng) || maxLng < -180 || maxLng > 180) {
+            const err = new Error();
+            err.status = 400;
+            err.message = "Bad Request";
+            err.errors = {page: "Maximum longitude is invalid"};
+            return next(err)
+        }        
+        checkMaxLng = true;
+    }
+    if(checkMinLng && checkMaxLng){
+        if(minLng > maxLng){
+            const err = new Error();
+            err.status = 400;
+            err.message = "Bad Request";
+            err.errors = {page: "Maximum longitude must be greater or equal to minimum longitude"};
+            return next(err)
+        }        
+        where.lng = { [Op.between]: [minLng, maxLng] };
+    }
+    if(checkMinLng && !checkMaxLng){
+        where.lng = { [Op.gte]: minLng };
+    }
+    if(!checkMinLng && checkMaxLng){
+        where.lng = { [Op.lte]: maxLng}
+    }
+
+    //price
+    let checkMinPrice;
+    let checkMaxPrice;
+
+    if(minPrice){
+        minPrice = parseFloat(minPrice);
+        if(isNaN(minPrice) || minPrice < 0) {
+            const err = new Error();
+            err.status = 400;
+            err.message = "Bad Request";
+            err.errors = {page: "Minimum price must be greater than or equal to 0"};
+            return next(err)
+        }
+        checkMinPrice = true;
+    }
+    if(maxPrice){
+        maxPrice = parseFloat(maxPrice);        
+        if(isNaN(maxPrice) || maxPrice < 0) {
+            const err = new Error();
+            err.status = 400;
+            err.message = "Bad Request";
+            err.errors = {page: "Maximum price must be greater than or equal to 0"};
+            return next(err)
+        }        
+        checkMaxPrice = true;
+    }
+    if(checkMinPrice && checkMaxPrice){
+        if(minPrice > maxPrice){
+            const err = new Error();
+            err.status = 400;
+            err.message = "Bad Request";
+            err.errors = {page: "Maximum price must be greater than or equal to minimum price"};
+            return next(err)
+        }        
+        where.price = { [Op.between]: [minPrice, maxPrice] };
+    }
+    if(checkMinPrice && !checkMaxPrice){
+        where.price = { [Op.gte]: minPrice };
+    }
+    if(!checkMinPrice && checkMaxPrice){
+        where.price = { [Op.lte]: maxPrice}
+    }
+
+    //find spots
+    let allSpots = await Spot.findAll({
+        where,
+        ...pagination
+    });
 
     for(let ele of allSpots){
         //add avgRating
