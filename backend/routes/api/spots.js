@@ -4,7 +4,7 @@ const { Spot, Review, SpotImage, User, ReviewImage, Booking } = require('../../d
 const { requireAuth } = require('../../utils/auth');
 const { handleValidationErrors } = require('../../utils/validation');
 
-//get all spots
+//get all spots && Add Query Filters to Get All Spots
 router.get('/', async(req, res) => {
     let allSpots = await Spot.findAll();
 
@@ -456,7 +456,6 @@ router.post('/:spotId/bookings', requireAuth, handleValidationErrors, async(req,
             message: "Forbidden"
         })
     }
-
 })
 
 module.exports = router;
