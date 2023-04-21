@@ -31,40 +31,49 @@ const router = express.Router();
 // Sign up
 router.post('/', handleValidationErrors, async (req, res, next) => {
     const { firstName, lastName, email, username, password } = req.body;
-    const hashedPassword = bcrypt.hashSync(password);
     // const user = await User.create({ email, username, hashedPassword });
-
-    const checkUserEmail = await User.findAll({
-      where: {
-        email
-      }
-    })
-    if(checkUserEmail.length > 0){
-      return res.status(500).json({
-        message: "User already exists",
-        errors: {
-          email: "User with that email already exists"
-        }
-      })
+    let hashedPassword;
+    if(password){
+      hashedPassword = bcrypt.hashSync(password);
     }
-    const checkUserName = await User.findAll({
-      where: {
-        username
-      }
-    })
-    if(checkUserName.length > 0){
-      return res.status(500).json({
-        message: "User already exists",
-        errors: {
-          username: "User with that username already exists"
+
+    if(email){
+      const checkUserEmail = await User.findAll({
+        where: {
+          email
         }
       })
+      if(checkUserEmail.length > 0){
+        return res.status(500).json({
+          message: "User already exists",
+          errors: {
+            email: "User with that email already exists"
+          }
+        })
+      }
+    }
+    
+    if(username){
+      const checkUserName = await User.findAll({
+        where: {
+          username
+        }
+      })
+      if(checkUserName.length > 0){
+        return res.status(500).json({
+          message: "User already exists",
+          errors: {
+            username: "User with that username already exists"
+          }
+        })
       // const err = new Error();
       // err.message = "User already exists";
       // err.errors = {username: "User with that username already exists"};
 
       // return next(err)
+      }
     }
+
 
     const safeUser = await User.create({
       firstName,
