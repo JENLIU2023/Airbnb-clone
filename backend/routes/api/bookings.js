@@ -26,11 +26,14 @@ router.get('/current', requireAuth, async(req, res) => {
         });
         const img = await SpotImage.findAll({
             where: {
-                spotId: spot.id
+                spotId: spot.id,
+                preview: true
             }
         });
-        if(img){
+        if(img.length > 0){
             spot.dataValues.previewImage = img[0].url;    
+        }else{
+            spot.dataValues.previewImage = "No preview image"
         }
         booking.dataValues.Spot = spot;
     }
