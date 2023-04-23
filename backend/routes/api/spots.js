@@ -216,22 +216,25 @@ router.get('/', async(req, res, next) => {
         }
 
         //add previewImage
-        const preview = await SpotImage.findAll({
+        const previewImgs = await SpotImage.findAll({
             attributes: ['url'],
             where: {
-                spotId: ele.id
+                spotId: ele.id,
+                preview: true
             }
         });
         
-        if(preview.length > 0){
-            ele.dataValues.previewImage = preview[0].url;
+        if(previewImgs.length > 0){
+            ele.dataValues.previewImage = previewImgs[0].url;
         }else{
-            ele.dataValues.previewImage = null;
+            ele.dataValues.previewImage = "No preview image";
         }
     }
 
     res.json({
-        Spots: allSpots
+        Spots: allSpots,
+        page,
+        size
     });
 })
 
@@ -262,16 +265,18 @@ router.get('/current', requireAuth, async(req, res) => {
             ele.dataValues.avgRating = null;
         }
 
-        const preview = await SpotImage.findAll({
+        const previewImgs = await SpotImage.findAll({
             attributes: ['url'],
             where: {
-                spotId: ele.id
+                spotId: ele.id,
+                preview: true
             }
         });
-        if(preview.length > 0){
-            ele.dataValues.previewImage = preview[0].url;
+        
+        if(previewImgs.length > 0){
+            ele.dataValues.previewImage = previewImgs[0].url;
         }else{
-            ele.dataValues.previewImage = null;
+            ele.dataValues.previewImage = "No preview image";
         }
     }
 
