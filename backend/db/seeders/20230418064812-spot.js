@@ -20,7 +20,7 @@ module.exports = {
     options.tableName = 'Spots';
     await queryInterface.bulkInsert(options, [
       {
-        ownerId: 1,
+        ownerId: 3,
         address: 'Big Rock Beach',
         city: 'Malibu',
         state: 'California',
@@ -32,7 +32,7 @@ module.exports = {
         price: 812
       },
       {
-        ownerId: 1,
+        ownerId: 3,
         address: 'Oceanside Blvd',
         city: 'Oceanside',
         state: 'California',
@@ -44,7 +44,7 @@ module.exports = {
         price: 1050
       },
       {
-        ownerId: 1,
+        ownerId: 3,
         address: 'Catherine Way',
         city: 'Avalon',
         state: 'California',
