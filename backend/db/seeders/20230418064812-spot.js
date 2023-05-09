@@ -54,6 +54,42 @@ module.exports = {
         name: 'The Big Blue',
         description: 'With 180 degree ocean views and the waves gently splashing against the beach, it is a soothing adventure.',
         price: 525
+      },
+      {
+        ownerId: 1,
+        address: 'address4',
+        city: 'New York',
+        state: 'New York',
+        country: 'United States',
+        lat: 41,
+        lng: 42,
+        name: 'Cozy Private Room',
+        description: 'This cozy and spacious Private Bedroom is located in Long Island City (Queens), an amazing, safe, and demanding neighborhood.',
+        price: 115
+      },
+      {
+        ownerId: 1,
+        address: 'address5',
+        city: 'Big Bear Lake',
+        state: 'California',
+        country: 'United States',
+        lat: 51,
+        lng: 52,
+        name: 'Cresta Chalet',
+        description: 'Welcome to Cresta Chalet! A modern, renovated A-Frame cabin in Big Bear.',
+        price: 111
+      },
+      {
+        ownerId: 1,
+        address: 'address6',
+        city: 'Apache Junction',
+        state: 'Arizona',
+        country: 'United States',
+        lat: 61,
+        lng: 62,
+        name: 'Stunning Views Superstition Mountains Hiking',
+        description: 'Our home is located at the base of the breathtaking Superstition Mountains and is 11 miles from Canyon Lake.',
+        price: 174
       }
     ])
   },
