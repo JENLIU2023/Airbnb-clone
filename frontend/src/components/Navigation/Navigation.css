@@ -1,3 +1,6 @@
+.createSpotButton {
+    text-decoration: none;
+}
 
 .profile-dropdown {
     display: flex;
@@ -24,3 +27,4 @@
 #profile:hover {
     cursor: pointer;
 }
+

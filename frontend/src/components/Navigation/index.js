@@ -8,6 +8,7 @@ import './Navigation.css';
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
 
+  const createSpotButton = "createSpotButton" + (sessionUser? "" : " hidden");
   return (
       <ul className='navigation'>
         <li id='home'>
@@ -15,6 +16,9 @@ function Navigation({ isLoaded }){
         </li>
         {isLoaded && (
         <li id='profile'>
+          <NavLink exact to="/spots/new" className={createSpotButton}>
+            Create a New Spot
+          </NavLink>
           <ProfileButton user={sessionUser} />
         </li>
         )}

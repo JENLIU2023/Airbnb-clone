@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 /** Action Type Constants: */
 export const LOAD_SPOTS = 'spots/LOAD_SPOTS';
 export const LOAD_SINGLE_SPOT = 'spots/LOAD_SINGLE_SPOT';
+export const ADD_SPOT = 'spots/ADD_SPOT';
 
 /**  Action Creators: */
 export const loadSpots = (spots) => ({
@@ -13,6 +14,11 @@ export const loadSpots = (spots) => ({
 export const loadSingleSpot = (spot) => ({
     type: LOAD_SINGLE_SPOT,
     spot
+})
+
+export const addSpot = (newSpot) => ({
+    type: ADD_SPOT,
+    newSpot
 })
 
 /** Thunk Action Creators: */
@@ -38,7 +44,24 @@ export const fetchSingleSpot = (spotId) => async (dispatch) => {
     }
 }
 
+export const createSpot = (spot) => async (dispatch) => {
 
+    const res= await csrfFetch('/api/spots', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(spot)
+    });
+
+    if(res.ok){
+        const newSpot = await res.json();
+        dispatch(addSpot(newSpot));
+        return newSpot;
+    }else{
+        const errors = await res.json()['errors'];
+        console.log("errors", errors)
+        return errors;
+    }
+}
 // state object
 const initialState = {
     allSpots: {},
@@ -58,6 +81,9 @@ const spotsReducer = (state = initialState, action) => {
         }
         case LOAD_SINGLE_SPOT: {
             return {...state, singleSpots: {[action.spot.id]: action.spot}}
+        }
+        case ADD_SPOT: {
+            return {...state, singleSpots: {[action.newSpot.id]: action.newSpot}}
         }
         default:
             return state;
