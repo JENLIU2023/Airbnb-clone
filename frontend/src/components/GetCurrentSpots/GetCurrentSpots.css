@@ -1,0 +1,19 @@
+.currentSpots {
+    display: flex;
+    flex-direction: column;
+}
+
+.modalButton {
+    list-style-type: none
+}
+/* .currentSpots2 {
+    display: grid;
+    grid-auto-flow: row;
+    grid-template-columns: repeat(4, 1fr);
+    justify-content: stretch;
+    align-items: stretch;
+    column-gap: 30px;
+    row-gap: 35px;
+    width: 90%;
+    
+} */

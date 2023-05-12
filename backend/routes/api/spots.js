@@ -209,10 +209,11 @@ router.get('/', async(req, res, next) => {
                 spotId: ele.id
             }
         })
+
         if(countOfReviews && sumOfStars){
             ele.dataValues.avgRating = sumOfStars/countOfReviews;
         }else {
-            ele.dataValues.avgRating = null;
+            ele.dataValues.avgRating = 'New';
         }
 
         //add previewImage
@@ -260,9 +261,9 @@ router.get('/current', requireAuth, async(req, res) => {
             }
         });       
         if(countOfReviews && sumOfStars){
-            ele.dataValues.avgRating = sumOfStars/countOfReviews;
+            ele.dataValues.avgRating = (sumOfStars/countOfReviews);
         }else{
-            ele.dataValues.avgRating = null;
+            ele.dataValues.avgRating = 'New';
         }
 
         const previewImgs = await SpotImage.findAll({
@@ -326,9 +327,14 @@ router.get('/:spotId', async (req, res) => {
     };
 
     if(numReviews && sumOfStars) {
-        spot.dataValues.avgStarRating = sumOfStars/numReviews
+        let num = sumOfStars/numReviews;
+        if(Number.isInteger(num)){
+            spot.dataValues.avgStarRating = Number.parseFloat(num).toFixed(1)
+        }else{
+            spot.dataValues.avgStarRating = Number.parseFloat(num).toFixed(2)
+        }
     }else{
-        spot.dataValues.avgStarRating = null
+        spot.dataValues.avgStarRating = 'New'
     };
 
     if(images.length > 0) {
@@ -351,7 +357,7 @@ router.post('/', requireAuth, handleValidationErrors, async(req, res) => {
     const { address, city, state, country, 
             lat, lng, name, description, price } = req.body;
     const { user } = req;
-    
+
     const newSpot = await Spot.create({
         ownerId: user.id,
         address,
@@ -364,7 +370,7 @@ router.post('/', requireAuth, handleValidationErrors, async(req, res) => {
         description,
         price
     });
-    
+
     res.status(201).json(newSpot);
 })
 

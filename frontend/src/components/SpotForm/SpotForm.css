@@ -1,0 +1,34 @@
+
+
+
+
+.spotForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+}
+
+.formPart1 {
+    display: flex;
+    flex-direction: column;
+}
+
+.formPart2 {
+    display: flex;
+    flex-direction: column;
+}
+
+.formPart5 {
+    display: flex;
+    flex-direction: column;
+}
+
+.hidden {
+    display: none;
+}
+
+.formErrors {
+    color: red;
+}

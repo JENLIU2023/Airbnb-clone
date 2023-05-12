@@ -1,14 +1,5 @@
-#root {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-}
-
-li {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    padding: 10px;
+.createSpotButton {
+    text-decoration: none;
 }
 
 .profile-dropdown {
@@ -20,3 +11,20 @@ li {
 .hidden {
     display: none;
 }
+
+#home:hover {
+    cursor: pointer;
+}
+
+.navigation {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+}
+
+#profile:hover {
+    cursor: pointer;
+}
+
