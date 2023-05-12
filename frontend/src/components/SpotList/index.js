@@ -14,6 +14,11 @@ function GetSpotList() {
         dispatch(fetchSpots())
     }, [dispatch])
 
+    for(let spot of spots){
+        if(spot.avgRating !== "New"){
+            spot.avgRating = Number.parseFloat(spot.avgRating).toFixed(1)
+        }
+    }
     return (
         <ul className='spotList'>
             {spots.map(spot=>(

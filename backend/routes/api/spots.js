@@ -209,14 +209,9 @@ router.get('/', async(req, res, next) => {
                 spotId: ele.id
             }
         })
-        if(countOfReviews && sumOfStars){
-            let num = sumOfStars/countOfReviews;
 
-            if(Number.isInteger(num)){
-                ele.dataValues.avgRating = num.toFixed(1)
-            }else{
-                ele.dataValues.avgRating = num.toFixed(2)
-            }
+        if(countOfReviews && sumOfStars){
+            ele.dataValues.avgRating = sumOfStars/countOfReviews;
         }else {
             ele.dataValues.avgRating = 'New';
         }
@@ -334,9 +329,9 @@ router.get('/:spotId', async (req, res) => {
     if(numReviews && sumOfStars) {
         let num = sumOfStars/numReviews;
         if(Number.isInteger(num)){
-            spot.dataValues.avgStarRating = num.toFixed(1)
+            spot.dataValues.avgStarRating = Number.parseFloat(num).toFixed(1)
         }else{
-            spot.dataValues.avgStarRating = num.toFixed(2)
+            spot.dataValues.avgStarRating = Number.parseFloat(num).toFixed(2)
         }
     }else{
         spot.dataValues.avgStarRating = 'New'
