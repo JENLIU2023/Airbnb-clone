@@ -10,6 +10,8 @@ The cloned website AuraBnb can be accessed through link: https://deploy-api-iani
 ### `Home Page`
 
 At the home page, the list of all spots are listed, no matter whether the user is logged-in or not.
+![Screenshot 2023-05-14 at 22 09 11](https://github.com/JENLIU2023/API-project/assets/123348326/c44110ee-4e8d-4c14-a0bf-af554cd7ae51)
+
 
 ### `Log-in or Sign-up or Log-out`
 
