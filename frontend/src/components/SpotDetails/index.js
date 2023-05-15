@@ -26,8 +26,7 @@ function GetSpotDetails() {
 
     const reviews = Object.values(useSelector(state=>state.reviews.spot))
     const spot = useSelector(state=>state.spots.singleSpots[spotId])
-console.log("spotindetail:",spot)
-console.log("reviews:", reviews)
+
     let reviewButtonClassName
     let reviewedUser = [];
     for(let review of reviews){
@@ -47,7 +46,7 @@ console.log("reviews:", reviews)
             if(spot.SpotImages[i]){
                 urls.push(spot.SpotImages[i].url)
             }else{
-                urls.push('https://a0.muscache.com/im/pictures/ea555b8d-bb92-4528-9a0c-1659fc6358e7.jpg')
+                urls.push('https://www.maricopa-sbdc.com/wp-content/uploads/2020/11/image-coming-soon-placeholder-768x768.png')
             }
         }
     }
@@ -70,10 +69,10 @@ console.log("reviews:", reviews)
         <div className='spotDetails'>
             <div className='spotDetails1'>
                 <h2>{spot.name}</h2>
-                <h4>{spot.city} {spot.state}</h4>
+                <h3>{spot.city}, {spot.state}, {spot.country}</h3>
                 <div className='spotImages'>
-                    {urls?.map(url=>(
-                        <img src={url} alt="image"></img>
+                    {urls?.map((url, index)=>(
+                        <img src={url} alt="image" id={"image" + index}></img>
                     ))}
                 </div>
             </div>
@@ -83,12 +82,18 @@ console.log("reviews:", reviews)
                     <p>{spot.description}</p>
                 </div>
                 <div className='spotDetails2Review'>
-                    <div>
-                        <h2>${spot.price}night</h2>
-                        <i className="fa-solid fa-star fa-sm"></i>
-                        <h2>{spot.avgStarRating}</h2>
-                        <h2>·</h2>
-                        <h2>{spot.numReviews? spot.numReviews:0} {rev}</h2>
+                    <div className='spotDetails2Review1'>
+                        <div>
+                            <h2>${spot.price}night</h2>
+                        </div>
+                        <div>
+                            <i className="fa-solid fa-star fa-sm"></i>
+                            <h2>{spot.avgStarRating}</h2>
+                            <section className={(spot.numReviews? "":"hidden") + " dot"}>
+                                <h2>·</h2>
+                                <h2>{spot.numReviews? spot.numReviews:0} {rev}</h2>
+                            </section> 
+                        </div>
                     </div>
                     <button onClick={()=>{window.alert("Feature Coming Soon...")}}>Reserve</button>
                 </div>
@@ -96,10 +101,10 @@ console.log("reviews:", reviews)
             <div className='spotDetails3'>
                 <i className="fa-solid fa-star fa-sm"></i>
                 <h2>{spot.avgStarRating}</h2>
-                <div className={(spot.numReviews? "":"hidden") + " dot"}>
+                <section className={(spot.numReviews? "":"hidden") + " dot"}>
                     <h2>·</h2>
                     <h2>{spot.numReviews? spot.numReviews:0} {rev}</h2>
-                </div>
+                </section>
             </div>
             <div className={reviewButtonClassName}>
                 <button className='modalButton'>
@@ -110,7 +115,7 @@ console.log("reviews:", reviews)
                     />
                 </button>
             </div>
-            <div>
+            <div className='spotDetails4'>
                 {reviews.reverse().map(review=>(
                     <div>
                         <h3>{review?.User?.firstName}</h3>

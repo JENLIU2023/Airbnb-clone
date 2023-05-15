@@ -52,7 +52,7 @@ router.post('/', handleValidationErrors, async (req, res, next) => {
         })
       }
     }
-    
+
     if(username){
       const checkUserName = await User.findAll({
         where: {
@@ -66,11 +66,12 @@ router.post('/', handleValidationErrors, async (req, res, next) => {
             username: "User with that username already exists"
           }
         })
-      // const err = new Error();
-      // err.message = "User already exists";
-      // err.errors = {username: "User with that username already exists"};
 
-      // return next(err)
+        // const err = new Error();
+        // err.status = 500;
+        // err.message = "User already exists";
+        // err.errors = {username: "User with that username already exists"};
+        // return next(err)
       }
     }
 

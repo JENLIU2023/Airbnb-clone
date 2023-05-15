@@ -26,6 +26,12 @@ function GetCurrentSpots () {
         if(spot.ownerId === userId) spots.push(spot)
     }
 
+    for(let spot of spots){
+        if(spot.avgRating !== "New"){
+            spot.avgRating = Number.parseFloat(spot.avgRating).toFixed(1)
+        }
+    }
+
     useEffect(()=>{
         dispatch(fetchSpots())
     }, [dispatch])
@@ -42,21 +48,28 @@ function GetCurrentSpots () {
             </div>
             <div className='currentSpots2'>
                 {spots?.map(spot=>(
-                    <div>
-                        <img src={spot?.previewImage} alt="img"></img>
-                        <h4>{spot?.city},{spot?.state}</h4>
-                        <i className="fa-solid fa-star fa-sm"></i>
-                        <h2>{spot.avgRating}</h2>
-                        <button onClick={(e)=>history.push(`/spots/${spot.id}/edit`)}>Update</button>
-                        <button className='modalButton'>
-                            <OpenModalMenuItem
-                            itemText="Delete"
-                            // onItemClick={}
-                            modalComponent={<DeleteSpotModal spot={spot}/>}
-                            />
-                        </button>
-                        
-                    
+                    <div className="currentSpotDetail">
+                        <section  onClick={()=>history.push(`/spots/${spot.id}`)}>
+                            <img src={spot?.previewImage} alt="img"></img>
+                            <div className='currentSpotsDetail1'>
+                                <h4>{spot?.city}, {spot?.state}</h4>
+                                <div>
+                                    <i className="fa-solid fa-star fa-sm"></i>
+                                    <h3>{spot.avgRating}</h3>
+                                </div>
+                            </div>
+                            <h3 className='currentSpotPrice'>${spot?.price} night</h3>
+                        </section>    
+                        <div className='currentSpotButton'>
+                            <button onClick={(e)=>history.push(`/spots/${spot.id}/edit`)}>Update</button>
+                            <button className='modalButton'>
+                                <OpenModalMenuItem
+                                itemText="Delete"
+                                // onItemClick={}
+                                modalComponent={<DeleteSpotModal spot={spot}/>}
+                                />
+                            </button>
+                        </div>
                     </div>
                 ))}
             </div>

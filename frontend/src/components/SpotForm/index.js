@@ -29,10 +29,10 @@ const SpotForm = ({ spot, formType }) => {
     
     let fetchMethod;
     let formPart5;
-    if(formType === 'Create a new Spot'){
+    if(formType === 'Create a New Spot'){
         fetchMethod = createSpot;
         formPart5 = "formPart5"
-    }else if(formType === 'Update Spot'){
+    }else if(formType === 'Update your Spot'){
         fetchMethod = updateSpot;
         formPart5 = "formPart5" + " hidden";
     }
@@ -62,7 +62,6 @@ const SpotForm = ({ spot, formType }) => {
             .then(newSpot=>history.push(`/spots/${newSpot.id}`))
             .catch(async (res) => {
                 const errBackend = await res.json();
-                console.log("errBackend:", errBackend)
                 if(errBackend.errors.lat){
                     setErrors(prevErrors=>{
                         const newErrors = {...prevErrors};
@@ -158,7 +157,7 @@ const SpotForm = ({ spot, formType }) => {
                 }
                 
                 for(let i=0; i<5; i++){
-                    if(urls[i] && (!urls[i].endsWith(".png") || !urls[i].endsWith(".jpg") || !urls[i].endsWith(".jpeg"))){
+                    if(urls[i] && (!urls[i].endsWith('.png') || !urls[i].endsWith(".jpg") || !urls[i].endsWith(".jpeg"))){
                         setErrors(prevErrors=>{
                             const string = "url" + (i+1);
                             const newErrors = {...prevErrors};
@@ -176,6 +175,7 @@ const SpotForm = ({ spot, formType }) => {
                 <h2>{formType}</h2>
                 <h3>Where's your place located?</h3>
                 <h4>Guests will only get your exact address once they booked a reservation</h4>
+                
                 <div>
                     <h4>Country</h4>
                     <h4 className='formErrors'>{errors?.country}</h4>
@@ -183,6 +183,7 @@ const SpotForm = ({ spot, formType }) => {
                 <label>
                     <input 
                         type='text'
+                        placeholder='Country'
                         value={country}
                         onChange={(e) => setCountry(e.target.value)}/>
                 </label>
@@ -193,89 +194,118 @@ const SpotForm = ({ spot, formType }) => {
                 <label>
                     <input 
                         type='text'
+                        placeholder='Address'
                         value={address}
                         onChange={(e) => setAddress(e.target.value)}/>
                 </label>
-                <div>
-                    <h4>City</h4>
-                    <h4 className='formErrors'>{errors?.city}</h4>
-                </div>
-                <label>
-                    <input 
-                        type='text'
-                        value={city}
-                        onChange={(e) => setCity(e.target.value)}/>
-                </label>
-                <div>
-                    <h4>State</h4>
-                    <h4 className='formErrors'>{errors?.state}</h4>
-                </div>
-                <label>
-                    <input 
-                        type='text'
-                        value={state}
-                        onChange={(e) => setState(e.target.value)}/>
-                </label>
-                <div>
-                    <h4>Latitude</h4>
-                    <h4 className='formErrors'>{errors?.lat}</h4>
-                </div>
-                <label>
-                    <input 
-                        type='number'
-                        value={lat}
-                        onChange={(e) => setLat(e.target.value)}/>
-                </label>
-                <div>
-                    <h4>Longitude</h4>
-                    <h4 className='formErrors'>{errors?.lng}</h4>
-                </div>
-                <label>
-                    <input 
-                        type='number'
-                        value={lng}
-                        onChange={(e) => setLng(e.target.value)}/>
-                </label>
+
+                <section className='section1'>
+                    <section>
+                        <div>
+                            <h4>City</h4>
+                            <h4 className='formErrors'>{errors?.city}</h4>
+                        </div>
+                        <label>
+                            <input 
+                                type='text'
+                                placeholder='City'
+                                value={city}
+                                onChange={(e) => setCity(e.target.value)}/>
+                        </label>
+                    </section>
+
+                    <section>
+                        <div>
+                            <h4>State</h4>
+                            <h4 className='formErrors'>{errors?.state}</h4>
+                        </div>
+                        <label>
+                            <input 
+                                type='text'
+                                placeholder='State'
+                                value={state}
+                                onChange={(e) => setState(e.target.value)}/>
+                        </label>
+                    </section>
+                </section>
+
+                <section className='section2'>
+                    <section>
+                        <div>
+                            <h4>Latitude</h4>
+                            <h4 className='formErrors'>{errors?.lat}</h4>
+                        </div>
+                        <label>
+                            <input 
+                                type='number'
+                                placeholder='Latitude'
+                                value={lat}
+                                onChange={(e) => setLat(e.target.value)}/>
+                        </label>
+                    </section>    
+
+                    <section>
+                        <div>
+                            <h4>Longitude</h4>
+                            <h4 className='formErrors'>{errors?.lng}</h4>
+                        </div>
+                        <label>
+                            <input 
+                                type='number'
+                                placeholder='Longitude'
+                                value={lng}
+                                onChange={(e) => setLng(e.target.value)}/>
+                        </label>
+                    </section>
+                </section>
             </div>
+
             <div className='formPart2'>
                 <h3>Describe your place to guests</h3>
                 <h4>Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood.</h4>
                 <label>
-                    <input 
+                    <textarea 
                         type='text'
+                        placeholder='Description'
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}/>
                 </label>
                 <h4 className='formErrors'>{errors?.description}</h4>
             </div>
+
             <div className='formPart3'>
                 <h3>Create a title for your spot</h3>
                 <h4>Catch guests' attention with a spot title that highlights what makes your place special.</h4>
                 <label>
                     <input 
                         type='text'
+                        placeholder='Name of your spot'
                         value={name}
                         onChange={(e) => setName(e.target.value)}/>
                 </label>
                 <h4 className='formErrors'>{errors?.name}</h4>
             </div>
+
             <div className='formPart4'>
                 <h3>Set a base price for your spot</h3>
                 <h4>Competitive pricing can help your listing stand out and rank higher in search results.</h4>
                 <label>$
                     <input 
                         type='number'
+                        placeholder='Price per night (USD)'
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}/>
                 </label>
                 <h4 className='formErrors'>{errors?.price}</h4>
             </div>
+
             <div className={formPart5}>
                 <h3>Liven up your spot with photos</h3>
                 <h4>Submit a link a least one photo to publish your spot.</h4>
                 <label>
                     <input 
                         type='url'
+                        placeholder='Preview Image URL'
                         value={url1}
                         onChange={(e) => setUrl1(e.target.value)}/>
                 </label>
@@ -283,6 +313,7 @@ const SpotForm = ({ spot, formType }) => {
                 <label>
                     <input 
                         type='url'
+                        placeholder='Image URL'
                         value={url2}
                         onChange={(e) => setUrl2(e.target.value)}/>
                 </label>
@@ -290,6 +321,7 @@ const SpotForm = ({ spot, formType }) => {
                 <label>
                     <input 
                         type='url'
+                        placeholder='Image URL'
                         value={url3}
                         onChange={(e) => setUrl3(e.target.value)}/>
                 </label>
@@ -297,6 +329,7 @@ const SpotForm = ({ spot, formType }) => {
                 <label>
                     <input 
                         type='url'
+                        placeholder='Image URL'
                         value={url4}
                         onChange={(e) => setUrl4(e.target.value)}/>
                 </label>
@@ -304,13 +337,15 @@ const SpotForm = ({ spot, formType }) => {
                 <label>
                     <input 
                         type='url'
+                        placeholder='Image URL'
                         value={url5}
                         onChange={(e) => setUrl5(e.target.value)}/>
                 </label>
                 <h4 className='formErrors'>{errors?.url5}</h4>
             </div>
+
             <div className='formPart6'>
-                <button type="submit">Create Spot</button>
+                <button type="submit">{formType==='Create a New Spot'? "Create Spot":"Update your spot"}</button>
             </div>
         </form>
     )

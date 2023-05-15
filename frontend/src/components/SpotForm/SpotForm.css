@@ -1,28 +1,93 @@
 
-
-
-
 .spotForm {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 30%;
+    width: 40%;
+    margin-top: 100px;
+}
+
+.spotForm h3 {
+    margin: 0;
 }
 
 .formPart1 {
     display: flex;
     flex-direction: column;
+    padding-bottom: 30px;
+    border-bottom: 2px rgb(146, 143, 143) solid;
+    width: 100%;
+}
+
+.formPart1 input {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.formPart1 div {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
 }
 
 .formPart2 {
     display: flex;
     flex-direction: column;
+    padding: 20px 0 20px 0;
+    border-bottom: 2px rgb(146, 143, 143) solid;
+    width: 100%;
+}
+
+.formPart2 textarea {
+    width: 100%;
+    height: 100px;
+}
+
+.formPart3 {
+    padding: 20px 0 20px 0;
+    border-bottom: 2px rgb(146, 143, 143) solid;
+    width: 100%;
+}
+
+.formPart3 input {
+    width: 100%;
+}
+
+.formPart4 {
+    padding: 20px 0 20px 0;
+    border-bottom: 2px rgb(146, 143, 143) solid;
+    width: 100%;
+}
+
+.formPart4 input {
+    width: 100%;
+}
+
+.formPart4 label {
+    display: flex;
+    flex-direction: row;
 }
 
 .formPart5 {
-    display: flex;
-    flex-direction: column;
+    padding: 20px 0 20px 0;
+    border-bottom: 2px rgb(146, 143, 143) solid;
+    width: 100%;
+}
+
+.formPart5 input {
+    width: 100%;
+}
+
+.formPart6 {
+    padding: 10px 0 30px 0;
+}
+
+.formPart6 button {
+    background-color: rgb(233, 84, 29);
+    box-shadow: 2px 2px 2px black;
+    color: white;
 }
 
 .hidden {
@@ -31,4 +96,28 @@
 
 .formErrors {
     color: red;
+}
+
+.section1 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px
+}
+
+.section1 section div {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.section2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px
+}
+
+.section2 section div {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
 }

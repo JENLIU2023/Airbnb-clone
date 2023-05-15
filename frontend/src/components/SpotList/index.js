@@ -20,6 +20,7 @@ function GetSpotList() {
         }
     }
     return (
+      <div className='bodyContainer'>
         <ul className='spotList'>
             {spots.map(spot=>(
                 <li key={spot.id} onClick={()=>history.push(`/spots/${spot.id}`)}>
@@ -33,6 +34,7 @@ function GetSpotList() {
                 </li>
             ))}
         </ul>
+      </div>
     )
 }
 

@@ -1,19 +1,71 @@
 .currentSpots {
     display: flex;
     flex-direction: column;
+    width: 90%;
+    margin-bottom: 50px;
+    margin-top: 100px;
 }
 
-.modalButton {
-    list-style-type: none
+.currentSpots1 button {
+    color: white;
+    background-color: rgb(97, 95, 95);
+    box-shadow: 2px 2px 2px black;
 }
-/* .currentSpots2 {
+
+.currentSpots2 {
     display: grid;
     grid-auto-flow: row;
     grid-template-columns: repeat(4, 1fr);
     justify-content: stretch;
     align-items: stretch;
-    column-gap: 30px;
+    column-gap: 10px;
     row-gap: 35px;
-    width: 90%;
-    
-} */
+    margin-bottom: 50px;
+    padding: 30px 0px 30px 0px;
+}
+
+.currentSpotsDetail {
+    display: flex;
+    flex-direction: column;
+}
+
+.currentSpotButton {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+}
+
+.currentSpotButton button {
+    color: white;
+    background-color: rgb(97, 95, 95);
+    box-shadow: 2px 2px 2px black;
+}
+
+.currentSpotsDetail img {
+    height: fit-content;
+}
+
+.currentSpotsDetail1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.currentSpotsDetail1 div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+}
+
+.currentSpotPrice  {
+    margin-top: 0;
+}
+
+.modalButton {
+    list-style-type: none
+}
+
+

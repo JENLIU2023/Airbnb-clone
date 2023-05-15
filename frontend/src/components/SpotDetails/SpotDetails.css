@@ -2,39 +2,66 @@
     display: none;
 }
 
+.modalButton {
+    color: white;
+    background-color: rgb(95, 93, 93);
+    box-shadow: 0 1px 2px;
+}
+
 .spotDetails {
     display: flex;
     flex-direction: column;
-    width: 90%;
+    width: 80%;
     padding: 20px;
+    margin-top: 90px;
+    margin-bottom: 100px;
 }
 
 .spotDetails2 {
     display: grid;
     grid-auto-flow: row;
-    grid-template-columns: 3fr 1.5fr;
+    grid-template-columns: 3fr 2fr;
     align-items: stretch;
-    align-items: center;
-    padding: 20px;
+    margin: 30px 0 30px 0;
+}
+
+.spotDetails2Owner {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
 }
 
 .spotDetails2Review {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: black 1px solid;
-    border-radius: 10px;
+    border: rgb(75, 72, 72) 2px solid;
+    border-radius: 15px;
 }
 
-.spotDetails2Review div {
+.spotDetails2Review button {
+    width: 85%;
+    height: 30px;
+    background-color: rgb(233, 84, 29);
+    box-shadow: 2px 2px 2px black;
+}
+
+.spotDetails2Review1 {
     display: flex;
     flex-direction: row;
-    justify-content: center;
     align-items: center;
+    gap: 20px;
 }
 
-.spotDetails2Owner {
-    
+.spotDetails2Review1 div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+}
+
+.spotDetails2Review1 h2 {
+    padding: 0 5px 0 0;
 }
 
 .spotDetails3 {
@@ -45,17 +72,68 @@
     border-top: black 1px solid;
 }
 
+.spotDetails3 h2 {
+    padding: 0 5px 0 0;
+}
+
+
+.spotDetails4 h4 {
+    color: gray;
+}
+
 .dot {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-.spotImages {
+.spotDetails1 {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.spotImages img {
-    width: 20%;
+.spotImages {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: 
+        "one one two three"
+        "one one four five";
+    justify-content: stretch;
+    align-items: stretch;
+    column-gap: 10px;
+    row-gap: 10px;
+    place-items: center;
+    height: 400px;
+}
+
+#image0 {
+    grid-area: one;
+    width: 100%;
+    overflow: hidden;
+}
+
+#image1 {
+    grid-area: two;
+    width: 100%;
+    overflow: hidden;
+}
+
+#image2 {
+    grid-area: three;
+    width: 100%;
+    overflow: hidden;
+}
+
+#image3 {
+    grid-area: four;
+    width: 100%;
+    overflow: hidden;
+}
+
+#image4 {
+    grid-area: five;
+    width: 100%;
+    overflow: hidden;
 }

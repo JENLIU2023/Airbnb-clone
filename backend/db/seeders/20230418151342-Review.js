@@ -42,6 +42,12 @@ module.exports = {
         userId: 3,
         review: 'Excellent experience!',
         stars: 5
+      },
+      {
+        spotId: 4,
+        userId: 3,
+        review: 'The room is not as good as the picture, disappointed!',
+        stars: 2
       }
     ])
   },

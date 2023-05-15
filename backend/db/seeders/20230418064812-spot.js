@@ -90,6 +90,42 @@ module.exports = {
         name: 'Stunning Views Superstition Mountains Hiking',
         description: 'Our home is located at the base of the breathtaking Superstition Mountains and is 11 miles from Canyon Lake.',
         price: 174
+      },
+      {
+        ownerId: 5,
+        address: 'address7',
+        city: 'Los Angeles',
+        state: 'California',
+        country: 'United States',
+        lat: 0,
+        lng: 0,
+        name: 'Stunning Modern Off-Grid Home',
+        description: 'If you are looking for a peaceful home in a stunning environment with the most incredible sunset views, this 3-bedroom in Palomar Mountain is for you.',
+        price: 288
+      },
+      {
+        ownerId: 5,
+        address: 'address8',
+        city: 'Olancha',
+        state: 'California',
+        country: 'United States',
+        lat: 0,
+        lng: 0,
+        name: 'Olancha Lakeside RV Site#1 Death Valley Passageway',
+        description: 'RV SPACES ONLY.',
+        price: 166
+      },
+      {
+        ownerId: 5,
+        address: 'address9',
+        city: 'Carlisle',
+        state: 'Pennsylvania',
+        country: 'United States',
+        lat: 0,
+        lng: 0,
+        name: 'Stuart Manor Bed and Breakfast',
+        description: 'Guests are welcome to use the private pool, patios and fire pit as well as enjoy the beautiful interior.',
+        price: 300
       }
     ])
   },
