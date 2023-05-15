@@ -44,20 +44,29 @@ function ProfileButton({ user }) {
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
 
   return (
-    <>
-      <button onClick={openMenu}>
+    <div id="profileButton">
+      <button onClick={openMenu} id="bars">
+        <i className="fa-solid fa-bars"></i>
         <i className="fas fa-user-circle" />
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <li>{user.username}</li>
-            <li>{user.firstName} {user.lastName}</li>
-            <li>{user.email}</li>
-            <NavLink exact to="/spots/current">Manage Spots</NavLink>
-            <li>
-              <button onClick={logout}>Log Out</button>
-            </li>
+            {/* <li>{user.username}</li> */}
+            {/* <li>{user.firstName} {user.lastName}</li> */}
+            <div id="profile-dropdown-part1">
+              <li>Hello, {user.firstName}</li>
+              <li>{user.email}</li>
+            </div>
+            <div id="profile-dropdown-part2">
+              <NavLink exact to="/spots/current">Manage Spots</NavLink>
+            </div>
+            <div id="profile-dropdown-part3">
+              <li>
+                <button onClick={logout}>Log Out</button>
+              </li>
+            </div>
+            
           </>
         ) : (
           <>
@@ -74,7 +83,7 @@ function ProfileButton({ user }) {
           </>
         )}
       </ul>
-    </>
+    </div>
   );
 }
 

@@ -9,6 +9,8 @@
     column-gap: 30px;
     row-gap: 35px;
     width: 90%;
+    margin: 0;
+    padding: 30px 10px 30px 10px;
 }
 
 .spotList li {

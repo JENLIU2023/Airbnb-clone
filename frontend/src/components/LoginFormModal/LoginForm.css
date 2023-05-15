@@ -2,3 +2,58 @@ form {
     display: flex;
     gap: 5px;
 }
+
+.errors {
+    color: red;
+}
+
+.loginModal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    width: 400px;
+}
+
+.loginModal h1 {
+    margin: 10px 0 0 0;
+}
+
+.loginModal h2 {
+    margin: 20px 0 20px 0;
+    font-size: medium;
+}
+
+.loginModal form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    font-size: large;
+    margin-bottom: 20px;
+}
+
+.loginModal label {
+    display: flex;
+    flex-direction: column;
+}
+
+.loginModal input {
+    width: 350px;
+    border: 2px solid black;
+    height: 25px;
+}
+
+.loginButton {
+    width: 350px;
+    height: 33px;
+    background-color: rgb(233, 84, 29);
+    box-shadow: 2px 2px 2px black;
+    color: white;
+}
+
+:disabled {
+    background-color: rgb(222, 217, 217);
+}

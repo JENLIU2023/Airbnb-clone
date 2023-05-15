@@ -34,7 +34,7 @@ export const fetchReviews = (spotId) => async (dispatch) => {
     }
 }
 
-export const createReview = (newReview) => async (dispatch) => {
+export const createReview = (newReview, sessionUser) => async (dispatch) => {
     const res = await csrfFetch(`/api/spots/${newReview.spotId}/reviews`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -42,7 +42,9 @@ export const createReview = (newReview) => async (dispatch) => {
     })
 
     if(res.ok){
-        const reviewCreated = await res.json();
+        const review = await res.json();
+        const reviewCreated = {...review, "User": sessionUser}
+        
         dispatch(addReview(reviewCreated));
         dispatch(fetchSingleSpot(reviewCreated.spotId))
         return reviewCreated;

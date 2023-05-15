@@ -30,7 +30,7 @@ function CreateReview ({spot, sessionUser}){
             review,
             stars: rating
         }
-        return dispatch(createReview(newReview))
+        return dispatch(createReview(newReview, sessionUser))
             .then(()=>history.push(`/spots/${spot.id}`))
             .then(closeModal())
             .catch(async (res) => {
@@ -39,8 +39,8 @@ function CreateReview ({spot, sessionUser}){
     }
 
     return (
-        <div>
-            <h1>How was your stay?</h1>
+        <div className="createReviewModal">
+            <h2>How was your stay?</h2>
             <label>
                 <input 
                     type='text'
@@ -63,7 +63,7 @@ function CreateReview ({spot, sessionUser}){
                     )
                 })}
             </div>
-            <button disabled={isDisabled()} onClick={handleReviewSubmit}>Submit Your Review</button>
+            <button disabled={isDisabled()} onClick={handleReviewSubmit} className="submitReview">Submit Your Review</button>
         </div>
     )
 }

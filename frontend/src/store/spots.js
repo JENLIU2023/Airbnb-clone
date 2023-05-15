@@ -134,7 +134,7 @@ const spotsReducer = (state = initialState, action) => {
             return {...state, singleSpots: {[action.spot.id]: action.spot}}
         }
         case ADD_SPOT: {
-            return {...state, singleSpots: {[action.newSpot.id]: action.newSpot}}
+            return {...state, allSpots: {...state.allSpots, [action.newSpot.id]: action.newSpot}, singleSpots: {[action.newSpot.id]: action.newSpot}}
         }
         case EDIT_SPOT: {
             return {...state, singleSpots: {[action.newSpot.id]: action.newSpot}}
