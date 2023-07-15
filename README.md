@@ -2,7 +2,7 @@
 # AuraBnb
 
 This project is a clone of airbnb website.\
-The cloned website AuraBnb can be accessed through link: https://deploy-api-iani.onrender.com.
+The cloned website AuraBnb can be accessed through link: https://aurabnb.onrender.com.
 
 
 ## Introduction for the project:
